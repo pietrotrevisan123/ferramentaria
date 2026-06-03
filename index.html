@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentaria Trevisan | Precisão que gera resultados</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #0a9ef3;
+    --blue-dark: #0671b8;
+    --blue-glow: #0af3f3;
+    --steel: #b0c4d8;
+    --steel-dark: #6e8ca0;
+    --bg: #050c14;
+    --bg2: #080f1a;
+    --surface: #0c1828;
+    --surface2: #0f2035;
+    --text: #e8f4ff;
+    --muted: #7fa5c0;
+    --gold: #f0c040;
+    --green: #22d47a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(10,158,243,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 90% 60%, rgba(10,158,243,.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(5,12,20,.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(10,158,243,.2);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--blue); }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  nav ul a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color .25s;
+  }
+  nav ul a:hover { color: var(--blue); }
+
+  .nav-cta {
+    background: var(--blue);
+    color: #fff !important;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .nav-cta:hover { background: var(--blue-dark) !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 40px 80px;
+    overflow: hidden;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(10,158,243,.15);
+    border: 1px solid rgba(10,158,243,.35);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+    animation: fadeUp .6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: pulse 1.5s infinite;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(64px, 9vw, 110px);
+    line-height: .95;
+    letter-spacing: 1px;
+    animation: fadeUp .6s .1s ease both;
+  }
+
+  .hero h1 .blue { color: var(--blue); text-shadow: 0 0 40px rgba(10,158,243,.5); }
+
+  .hero p {
+    margin-top: 20px;
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+    animation: fadeUp .6s .2s ease both;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 32px;
+    animation: fadeUp .6s .3s ease both;
+  }
+
+  .badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1px solid rgba(176,196,216,.15);
+    border-radius: 6px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+    color: var(--steel);
+  }
+  .badge svg { flex-shrink: 0; }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 40px;
+    animation: fadeUp .6s .4s ease both;
+  }
+
+  /* ── VISUAL WHEELS (hero right) ── */
+  .hero-visual {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 500px;
+    z-index: 1;
+    animation: fadeUp .8s .2s ease both;
+  }
+
+  /* SVG inline wheel drawings */
+  .wheels-svg {
+    width: 100%;
+    height: 100%;
+    opacity: .92;
+    filter: drop-shadow(0 0 24px rgba(10,158,243,.4));
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 14px 28px;
+    border-radius: 6px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all .25s;
+  }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(10,158,243,.35);
+  }
+  .btn-primary:hover {
+    background: var(--blue-dark);
+    box-shadow: 0 6px 32px rgba(10,158,243,.5);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid rgba(176,196,216,.3);
+  }
+  .btn-outline:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    transform: translateY(-2px);
+  }
+  .btn-whatsapp {
+    background: #25D366;
+    color: #fff;
+    box-shadow: 0 4px 24px rgba(37,211,102,.35);
+    font-size: 17px;
+    padding: 16px 32px;
+  }
+  .btn-whatsapp:hover {
+    background: #1ebe5a;
+    box-shadow: 0 6px 32px rgba(37,211,102,.5);
+    transform: translateY(-2px);
+  }
+
+  /* ── SECTION COMMON ── */
+  section { position: relative; z-index: 1; }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(44px, 6vw, 68px);
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .section-title span { color: var(--blue); }
+  .section-desc {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(10,158,243,.3), transparent);
+    margin: 0;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--surface);
+    border-top: 1px solid rgba(10,158,243,.15);
+    border-bottom: 1px solid rgba(10,158,243,.15);
+    padding: 40px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 52px;
+    color: var(--blue);
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(10,158,243,.4);
+  }
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── PRODUTOS REBOLOS ── */
+  .produtos {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .produto-card {
+    background: var(--surface);
+    border: 1px solid rgba(176,196,216,.1);
+    border-radius: 10px;
+    padding: 28px 20px 22px;
+    text-align: center;
+    transition: all .3s;
+    cursor: default;
+  }
+  .produto-card:hover {
+    border-color: rgba(10,158,243,.4);
+    background: var(--surface2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(10,158,243,.12);
+  }
+
+  .produto-card svg {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 16px;
+    filter: drop-shadow(0 0 10px rgba(10,158,243,.3));
+  }
+
+  .produto-nome {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+  .produto-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── FERRAMENTAS SECTION ── */
+  .ferramentas-section {
+    background: var(--surface);
+    border-top: 1px solid rgba(10,158,243,.1);
+    border-bottom: 1px solid rgba(10,158,243,.1);
+    padding: 100px 40px;
+  }
+  .ferramentas-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .ferr-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ferr-visual svg {
+    width: 340px;
+    height: 380px;
+    filter: drop-shadow(0 0 30px rgba(10,158,243,.35));
+  }
+
+  .ferr-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .ferr-item {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .ferr-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(10,158,243,.12);
+    border: 1px solid rgba(10,158,243,.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .ferr-text h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+  .ferr-text p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* ── DIFERENCIAIS ── */
+  .diferenciais {
+    padding: 100px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .dif-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .dif-card {
+    background: var(--surface);
+    border: 1px solid rgba(176,196,216,.1);
+    border-radius: 10px;
+    padding: 28px 24px;
+    transition: all .3s;
+  }
+  .dif-card:hover {
+    border-color: rgba(10,158,243,.35);
+    transform: translateY(-4px);
+  }
+  .dif-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: rgba(10,158,243,.1);
+    border: 1px solid rgba(10,158,243,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .dif-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  .dif-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, var(--surface2) 0%, rgba(10,158,243,.12) 100%);
+    border-top: 1px solid rgba(10,158,243,.2);
+    border-bottom: 1px solid rgba(10,158,243,.2);
+    padding: 100px 40px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(48px, 7vw, 80px);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .cta-section h2 span { color: var(--blue); }
+  .cta-section p {
+    font-size: 17px;
+    color: var(--muted);
+    margin: 20px auto 40px;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .cta-phone {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(32px, 5vw, 52px);
+    letter-spacing: 3px;
+    color: var(--text);
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid rgba(176,196,216,.08);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 20px;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  .footer-logo span { color: var(--blue); }
+  .footer-copy {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,.5);
+    text-decoration: none;
+    transition: all .3s;
+    animation: popIn .5s .8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+  .wa-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 32px rgba(37,211,102,.7);
+  }
+  .wa-float::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 2px solid rgba(37,211,102,.4);
+    animation: waPulse 2s infinite;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: .4; }
+  }
+  @keyframes waPulse {
+    0%   { transform: scale(1); opacity: .7; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  @keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-14px); }
+  }
+
+  /* Animated hero visual */
+  .spin-slow { animation: rotate 18s linear infinite; transform-origin: center; }
+  .float-anim { animation: floatY 4s ease-in-out infinite; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    .hero { padding: 100px 24px 60px; }
+    .hero-visual { opacity: .15; right: -80px; width: 380px; }
+    .ferramentas-inner { grid-template-columns: 1fr; gap: 40px; }
+    .ferr-visual { order: -1; }
+    .ferr-visual svg { width: 260px; height: 280px; }
+    .produtos { padding: 70px 24px; }
+    .diferenciais { padding: 70px 24px; }
+    footer { flex-direction: column; text-align: center; }
+    .stats-bar { gap: 30px; padding: 30px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">TREVISAN <span>FERRAMENTARIA</span></div>
+  <ul>
+    <li><a href="#rebolos">Rebolos</a></li>
+    <li><a href="#ferramentas">Ferramentas</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato" class="nav-cta">Orçamento</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">35+ Anos de Experiência</div>
+    <h1>
+      FERRAMENTARIA<br>
+      <span class="blue">TREVISAN</span>
+    </h1>
+    <p>Precisão que gera resultados. Fabricamos, retrabalhos e modificamos ferramentas com tecnologia de primeira linha.</p>
+
+    <div class="hero-badges">
+      <div class="badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0a9ef3" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#0a9ef3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Alta Precisão
+      </div>
+      <div class="badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0a9ef3" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#0a9ef3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Qualidade Garantida
+      </div>
+      <div class="badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0a9ef3" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#0a9ef3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Diamante Alemão e Inglês
+      </div>
+      <div class="badge">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#0a9ef3" stroke-width="1.5"/><path d="M5 8l2 2 4-4" stroke="#0a9ef3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Conforme Orçamento
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://wa.me/5519981340650?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="btn btn-whatsapp">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Falar no WhatsApp
+      </a>
+      <a href="#rebolos" class="btn btn-outline">Ver Produtos</a>
+    </div>
+  </div>
+
+  <!-- HERO VISUAL: rebolo drawings -->
+  <div class="hero-visual">
+    <svg class="wheels-svg float-anim" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="wg1" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#e8f4ff" stop-opacity=".95"/>
+          <stop offset="40%" stop-color="#b0c4d8" stop-opacity=".85"/>
+          <stop offset="100%" stop-color="#2a4a6a" stop-opacity=".9"/>
+        </radialGradient>
+        <radialGradient id="wg2" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#0af3f3" stop-opacity=".8"/>
+          <stop offset="50%" stop-color="#0a9ef3" stop-opacity=".7"/>
+          <stop offset="100%" stop-color="#0671b8" stop-opacity=".8"/>
+        </radialGradient>
+        <radialGradient id="wg3" cx="50%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#d0e8f8"/>
+          <stop offset="60%" stop-color="#6e8ca0"/>
+          <stop offset="100%" stop-color="#1a3050"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Large flat rebolo center -->
+      <g transform="translate(250,200)">
+        <!-- outer ring -->
+        <ellipse cx="0" cy="14" rx="160" ry="38" fill="rgba(10,158,243,.12)"/>
+        <ellipse cx="0" cy="0" rx="160" ry="36" fill="url(#wg1)" filter="url(#glow)"/>
+        <!-- inner depression -->
+        <ellipse cx="0" cy="-2" rx="120" ry="26" fill="url(#wg3)" opacity=".6"/>
+        <ellipse cx="0" cy="-4" rx="80" ry="18" fill="rgba(10,158,243,.2)"/>
+        <!-- center hole -->
+        <ellipse cx="0" cy="-3" rx="20" ry="7" fill="#050c14"/>
+        <ellipse cx="0" cy="-3" rx="16" ry="5.5" fill="rgba(10,158,243,.3)"/>
+        <!-- thickness edge -->
+        <path d="M-160,0 Q-160,34 -160,28 Q-155,50 0,56 Q155,50 160,28 L160,0 Q155,20 0,26 Q-155,20 -160,0Z" fill="#6e8ca0" opacity=".6"/>
+        <!-- highlight -->
+        <ellipse cx="-40" cy="-12" rx="50" ry="10" fill="white" opacity=".12"/>
+      </g>
+
+      <!-- Cup wheel -->
+      <g transform="translate(100,320)">
+        <ellipse cx="0" cy="12" rx="75" ry="18" fill="rgba(10,158,243,.1)"/>
+        <!-- body -->
+        <rect x="-75" y="-60" width="150" height="72" rx="4" fill="url(#wg1)" opacity=".9"/>
+        <!-- cup depression top -->
+        <ellipse cx="0" cy="-60" rx="75" ry="18" fill="url(#wg3)"/>
+        <ellipse cx="0" cy="-60" rx="55" ry="13" fill="rgba(10,158,243,.25)"/>
+        <ellipse cx="0" cy="-60" rx="20" ry="7" fill="#050c14"/>
+        <!-- bottom -->
+        <ellipse cx="0" cy="12" rx="75" ry="18" fill="#6e8ca0" opacity=".8"/>
+        <!-- rim band (diamond) -->
+        <rect x="-75" y="4" width="150" height="16" rx="2" fill="rgba(10,243,243,.35)"/>
+        <!-- highlight -->
+        <ellipse cx="-20" cy="-30" rx="28" ry="8" fill="white" opacity=".1"/>
+        <!-- center hole bottom -->
+        <ellipse cx="0" cy="12" rx="20" ry="6" fill="#050c14"/>
+        <ellipse cx="0" cy="12" rx="15" ry="4" fill="rgba(10,158,243,.3)"/>
+      </g>
+
+      <!-- Thin cutting disc -->
+      <g transform="translate(390,310)">
+        <ellipse cx="0" cy="6" rx="80" ry="14" fill="rgba(10,158,243,.08)"/>
+        <ellipse cx="0" cy="0" rx="80" ry="14" fill="url(#wg1)" opacity=".88"/>
+        <!-- core ring -->
+        <ellipse cx="0" cy="0" rx="60" ry="10" fill="url(#wg3)" opacity=".5"/>
+        <ellipse cx="0" cy="0" rx="30" ry="6" fill="rgba(10,158,243,.15)"/>
+        <!-- center -->
+        <ellipse cx="0" cy="0" rx="12" ry="4" fill="#050c14"/>
+        <!-- thin edge -->
+        <path d="M-80,0 Q-80,10 0,14 Q80,10 80,0 L80,6 Q80,16 0,20 Q-80,16 -80,6Z" fill="#4a6a8a" opacity=".5"/>
+        <!-- highlight -->
+        <ellipse cx="-20" cy="-4" rx="30" ry="5" fill="white" opacity=".13"/>
+      </g>
+
+      <!-- Small rebolo bottom left -->
+      <g transform="translate(150,420)">
+        <ellipse cx="0" cy="9" rx="50" ry="12" fill="rgba(10,158,243,.1)"/>
+        <ellipse cx="0" cy="0" rx="50" ry="12" fill="url(#wg2)" opacity=".85"/>
+        <ellipse cx="0" cy="0" rx="36" ry="8" fill="rgba(10,100,180,.5)"/>
+        <ellipse cx="0" cy="0" rx="14" ry="4" fill="#050c14"/>
+        <path d="M-50,0 Q-50,8 0,11 Q50,8 50,0 L50,9 Q50,17 0,20 Q-50,17 -50,9Z" fill="#2a7aaa" opacity=".5"/>
+        <ellipse cx="-12" cy="-4" rx="18" ry="4" fill="white" opacity=".12"/>
+      </g>
+
+      <!-- Decorative particles -->
+      <circle cx="330" cy="100" r="3" fill="#0af3f3" opacity=".7"/>
+      <circle cx="80" cy="200" r="2" fill="#0a9ef3" opacity=".5"/>
+      <circle cx="450" cy="200" r="2.5" fill="#0af3f3" opacity=".6"/>
+      <circle cx="200" cy="470" r="2" fill="#0a9ef3" opacity=".4"/>
+      <circle cx="420" cy="420" r="1.5" fill="#0af3f3" opacity=".5"/>
+
+      <!-- diamond symbol top right -->
+      <g transform="translate(400,80)" opacity=".7" filter="url(#glow)">
+        <polygon points="0,-22 18,0 0,22 -18,0" fill="none" stroke="#0af3f3" stroke-width="1.5"/>
+        <polygon points="0,-14 10,0 0,14 -10,0" fill="rgba(10,243,243,.2)" stroke="#0a9ef3" stroke-width="1"/>
+        <line x1="0" y1="-22" x2="-18" y2="0" stroke="#0af3f3" stroke-width=".8" opacity=".5"/>
+        <line x1="0" y1="-22" x2="18" y2="0" stroke="#0af3f3" stroke-width=".8" opacity=".5"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">35+</div>
+    <div class="stat-label">Anos de Experiência</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Qualidade Garantida</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">5</div>
+    <div class="stat-label">Tipos de Rebolos</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">1ª</div>
+    <div class="stat-label">Linha Diamantada</div>
+  </div>
+</div>
+
+<!-- REBOLOS PRODUTOS -->
+<section id="rebolos" class="produtos">
+  <div class="section-header">
+    <div class="section-label">Linha de Produtos</div>
+    <h2 class="section-title">REBOLOS <span>DIAMANTADOS</span></h2>
+    <p class="section-desc">Diversas medidas, diâmetros e concentrações. Diamante de primeira linha Alemão e Inglês.</p>
+  </div>
+
+  <div class="produtos-grid-img">
+  <img src="discosteste.png" alt="Rebolos Trevisan" style="width:100%; max-width:900px; margin:0 auto; display:block; border-radius:14px; filter:drop-shadow(0 0 20px rgba(10,158,243,.25));">
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FERRAMENTAS SECTION -->
+<section id="ferramentas" class="ferramentas-section">
+  <div class="ferramentas-inner">
+
+    <!-- Content -->
+    <div>
+      <div class="section-label">Serviços Especializados</div>
+      <h2 class="section-title" style="text-align:left;">FABRICAMOS<br><span>FERRAMENTAS</span></h2>
+      <p class="section-desc" style="text-align:left; margin-left:0; margin-top:16px; margin-bottom:40px;">Com 35+ anos de experiência, fabricamos e recuperamos ferramentas de corte com máxima precisão e tecnologia de ponta.</p>
+
+      <ul class="ferr-list">
+        <li class="ferr-item">
+          <div class="ferr-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
+            </svg>
+          </div>
+          <div class="ferr-text">
+            <h3>Fabricamos Conforme o Desenho</h3>
+            <p>Sua ideia, nossa precisão. Desenvolvemos a ferramenta exata que você precisa, do projeto à execução.</p>
+          </div>
+        </li>
+        <li class="ferr-item">
+          <div class="ferr-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            </svg>
+          </div>
+          <div class="ferr-text">
+            <h3>Retrabalhos em Ferramentas</h3>
+            <p>Recuperamos, reforçamos e deixamos como nova. Economize com a recuperação de ferramentas desgastadas.</p>
+          </div>
+        </li>
+        <li class="ferr-item">
+          <div class="ferr-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+            </svg>
+          </div>
+          <div class="ferr-text">
+            <h3>Modificações em Ferramentas</h3>
+            <p>Adaptamos para sua necessidade. Alteramos geometria, ângulos e dimensões para aplicações específicas.</p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Image below the list -->
+      <div class="ferr-visual" style="margin-top:40px; justify-content:flex-start;">
+        <img src="rebolosteste.png" alt="Ferramentas Trevisan" style="width:100%; max-width:500px; border-radius:14px; filter:drop-shadow(0 0 30px rgba(10,158,243,.4));">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section id="sobre" class="diferenciais">
+  <div class="section-header">
+    <div class="section-label">Por que nos escolher</div>
+    <h2 class="section-title">NOSSOS <span>DIFERENCIAIS</span></h2>
+  </div>
+
+  <div class="dif-grid">
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+      </div>
+      <div class="dif-title">Alta Performance</div>
+      <div class="dif-desc">Ferramentas e rebolos de altíssimo desempenho para as aplicações mais exigentes da indústria.</div>
+    </div>
+
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="dif-title">Qualidade Garantida</div>
+      <div class="dif-desc">Cada produto passa por rigoroso controle de qualidade antes de sair da nossa ferramentaria.</div>
+    </div>
+
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="dif-title">Agilidade no Prazo</div>
+      <div class="dif-desc">Comprometidos com a entrega no prazo acordado. Seu tempo de produção é valioso.</div>
+    </div>
+
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </div>
+      <div class="dif-title">Compromisso com Você</div>
+      <div class="dif-desc">Atendimento personalizado e dedicado. Trabalhamos junto com você para encontrar a melhor solução.</div>
+    </div>
+
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="dif-title">Máxima Durabilidade</div>
+      <div class="dif-desc">Materiais de ponta — diamante alemão e inglês — para maior vida útil e melhor custo-benefício.</div>
+    </div>
+
+    <div class="dif-card">
+      <div class="dif-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="dif-title">Conforme Orçamento</div>
+      <div class="dif-desc">Trabalhamos sob medida para o seu orçamento, sem abrir mão da qualidade e precisão.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section id="contato" class="cta-section">
+  <div class="section-label">Entre em Contato</div>
+  <h2>SOLICITE <span>SEU<br>ORÇAMENTO</span></h2>
+  <p>Fale com nossos especialistas e receba uma proposta personalizada para a sua necessidade. Resposta rápida!</p>
+
+  <a href="https://wa.me/5519981340650?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20ferramentas." target="_blank" class="btn btn-whatsapp" style="font-size:18px; padding:18px 40px;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Chamar no WhatsApp
+  </a>
+
+  <div class="cta-phone">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.35 2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+    </svg>
+    (19) 98134-0650
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">FERRAMENTARIA <span>TREVISAN</span></div>
+  <div class="footer-copy">© 2024 Ferramentaria Trevisan · Todos os direitos reservados · Itatiba - SP</div>
+  <a href="https://wa.me/5519981340650" target="_blank" style="color: var(--blue); font-family: 'Barlow Condensed', sans-serif; font-size:14px; letter-spacing:1px; text-decoration:none; text-transform:uppercase;">(19) 98134-0650</a>
+</footer>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/5519981340650?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="wa-float" title="Falar no WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+</body>
+</html>
