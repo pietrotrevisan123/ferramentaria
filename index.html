@@ -606,6 +606,254 @@
     footer { flex-direction: column; text-align: center; }
     .stats-bar { gap: 30px; padding: 30px 24px; }
   }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* stagger delays */
+  .reveal:nth-child(2) { transition-delay: .1s; }
+  .reveal:nth-child(3) { transition-delay: .2s; }
+  .reveal:nth-child(4) { transition-delay: .3s; }
+  .reveal:nth-child(5) { transition-delay: .4s; }
+  .reveal:nth-child(6) { transition-delay: .5s; }
+
+  /* ── PARTICLES ── */
+  #particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0;
+    animation: particleFly var(--dur, 6s) var(--delay, 0s) infinite ease-in-out;
+  }
+  @keyframes particleFly {
+    0%   { opacity: 0; transform: translateY(0) scale(1); }
+    20%  { opacity: .6; }
+    80%  { opacity: .3; }
+    100% { opacity: 0; transform: translateY(-300px) scale(.3); }
+  }
+
+  /* ── COUNTER ── */
+  .stat-num { transition: all .3s; }
+
+  /* ── PROCESS SECTION ── */
+  .process-section {
+    padding: 100px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 60px;
+  }
+  .process-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 12.5%;
+    right: 12.5%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--blue), var(--blue-glow), var(--blue), transparent);
+    opacity: .5;
+  }
+  .process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+  }
+  .process-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    color: var(--blue);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 20px rgba(10,158,243,.3);
+    transition: all .3s;
+  }
+  .process-step:hover .process-num {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 0 40px rgba(10,158,243,.6);
+    transform: scale(1.1);
+  }
+  .process-step h4 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .process-step p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── FAQ SECTION ── */
+  .faq-section {
+    background: var(--surface);
+    border-top: 1px solid rgba(10,158,243,.1);
+    border-bottom: 1px solid rgba(10,158,243,.1);
+    padding: 100px 40px;
+  }
+  .faq-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(176,196,216,.1);
+  }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-align: left;
+    padding: 22px 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    transition: color .25s;
+  }
+  .faq-question:hover { color: var(--blue); }
+  .faq-question .faq-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(10,158,243,.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s;
+    color: var(--blue);
+    font-size: 18px;
+    line-height: 1;
+  }
+  .faq-item.open .faq-icon {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, padding .4s ease;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 200px;
+    padding-bottom: 20px;
+  }
+
+  /* ── TESTIMONIAL / TRUST STRIP ── */
+  .trust-strip {
+    padding: 60px 40px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    letter-spacing: .8px;
+    text-transform: uppercase;
+  }
+  .trust-item svg { color: var(--blue); flex-shrink: 0; }
+
+  /* ── CARD HOVER GLOW ── */
+  .dif-card { position: relative; overflow: hidden; }
+  .dif-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(10,158,243,.08) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity .3s;
+    pointer-events: none;
+  }
+  .dif-card:hover::before { opacity: 1; }
+
+  /* ── NAVBAR SCROLL EFFECT ── */
+  nav.scrolled {
+    background: rgba(5,12,20,.98);
+    box-shadow: 0 4px 30px rgba(0,0,0,.4);
+  }
+
+  /* ── CURSOR GLOW ── */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(10,158,243,.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: left .15s ease, top .15s ease;
+  }
+
+  @media (max-width: 900px) {
+    .process-steps { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+    .process-steps::before { display: none; }
+    .trust-strip { gap: 24px; }
+    .process-section { padding: 70px 24px; }
+    .faq-section { padding: 70px 24px; }
+  }
+  @media (max-width: 500px) {
+    .process-steps { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
@@ -623,6 +871,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div id="particles"></div>
   <div class="hero-content">
     <div class="hero-tag">35+ Anos de Experiência</div>
     <h1>
@@ -766,19 +1015,19 @@
 
 <!-- STATS -->
 <div class="stats-bar">
-  <div class="stat">
+  <div class="stat reveal">
     <div class="stat-num">35+</div>
     <div class="stat-label">Anos de Experiência</div>
   </div>
-  <div class="stat">
+  <div class="stat reveal">
     <div class="stat-num">100%</div>
     <div class="stat-label">Qualidade Garantida</div>
   </div>
-  <div class="stat">
+  <div class="stat reveal">
     <div class="stat-num">5</div>
     <div class="stat-label">Tipos de Rebolos</div>
   </div>
-  <div class="stat">
+  <div class="stat reveal">
     <div class="stat-num">1ª</div>
     <div class="stat-label">Linha Diamantada</div>
   </div>
@@ -786,15 +1035,32 @@
 
 <!-- REBOLOS PRODUTOS -->
 <section id="rebolos" class="produtos">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">Linha de Produtos</div>
     <h2 class="section-title">REBOLOS <span>DIAMANTADOS</span></h2>
     <p class="section-desc">Diversas medidas, diâmetros e concentrações. Diamante de primeira linha Alemão e Inglês.</p>
   </div>
 
+  <!-- Tipos -->
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:48px;">
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ Resinados</div>
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ Diamantados</div>
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ Borazon</div>
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ Metálicos</div>
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ Disco de Corte</div>
+    <div class="badge" style="font-size:15px; padding:12px 22px;">✅ E Outros</div>
+  </div>
+
+  <!-- Destaque diamante -->
+  <div style="text-align:center; margin-bottom:40px;">
+    <span style="display:inline-block; background:rgba(10,158,243,.1); border:1px solid rgba(10,158,243,.35); border-radius:8px; padding:14px 28px; font-family:'Barlow Condensed',sans-serif; font-size:16px; letter-spacing:1px; color:var(--steel);">
+      💎 <strong style="color:var(--blue);">DIAMANTE DE PRIMEIRA LINHA</strong> &nbsp;—&nbsp; Alemão e Inglês
+    </span>
+  </div>
+
   <div class="produtos-grid-img">
-  <img src="discosteste.png" alt="Rebolos Trevisan" style="width:100%; max-width:900px; margin:0 auto; display:block; border-radius:14px; filter:drop-shadow(0 0 20px rgba(10,158,243,.25));">
-</div>
+    <img src="discosteste.png" alt="Rebolos Trevisan" style="width:100%; max-width:900px; margin:0 auto; display:block; border-radius:14px; filter:drop-shadow(0 0 20px rgba(10,158,243,.25));">
+  </div>
 </section>
 
 <div class="divider"></div>
@@ -810,7 +1076,7 @@
       <p class="section-desc" style="text-align:left; margin-left:0; margin-top:16px; margin-bottom:40px;">Com 35+ anos de experiência, fabricamos e recuperamos ferramentas de corte com máxima precisão e tecnologia de ponta.</p>
 
       <ul class="ferr-list">
-        <li class="ferr-item">
+        <li class="ferr-item reveal">
           <div class="ferr-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
               <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l6 6M15 9l-6 6"/>
@@ -821,7 +1087,7 @@
             <p>Sua ideia, nossa precisão. Desenvolvemos a ferramenta exata que você precisa, do projeto à execução.</p>
           </div>
         </li>
-        <li class="ferr-item">
+        <li class="ferr-item reveal">
           <div class="ferr-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
@@ -832,7 +1098,7 @@
             <p>Recuperamos, reforçamos e deixamos como nova. Economize com a recuperação de ferramentas desgastadas.</p>
           </div>
         </li>
-        <li class="ferr-item">
+        <li class="ferr-item reveal">
           <div class="ferr-icon">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
               <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
@@ -841,6 +1107,17 @@
           <div class="ferr-text">
             <h3>Modificações em Ferramentas</h3>
             <p>Adaptamos para sua necessidade. Alteramos geometria, ângulos e dimensões para aplicações específicas.</p>
+          </div>
+        </li>
+        <li class="ferr-item reveal">
+          <div class="ferr-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
+              <line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="ferr-text">
+            <h3>Ferramentas em Metal Duro</h3>
+            <p>Fabricamos brocas escalonadas, alargadores e calibradores em metal duro com alta precisão dimensional e excelente acabamento superficial.</p>
           </div>
         </li>
       </ul>
@@ -854,15 +1131,49 @@
   </div>
 </section>
 
+
+<!-- PROCESSO -->
+<section style="background:var(--bg2); border-top:1px solid rgba(10,158,243,.08);">
+  <div class="process-section">
+    <div class="section-header reveal">
+      <div class="section-label">Como Trabalhamos</div>
+      <h2 class="section-title">NOSSO <span>PROCESSO</span></h2>
+      <p class="section-desc">Do contato ao produto final, cada etapa é executada com máxima atenção e cuidado.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <div class="process-num">01</div>
+        <h4>Consulta</h4>
+        <p>Você nos conta sua necessidade via WhatsApp ou telefone</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">02</div>
+        <h4>Orçamento</h4>
+        <p>Enviamos proposta personalizada com prazo e valor</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">03</div>
+        <h4>Produção</h4>
+        <p>Fabricamos ou recuperamos com precisão e tecnologia</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-num">04</div>
+        <h4>Entrega</h4>
+        <p>Produto pronto com qualidade garantida e no prazo</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- DIFERENCIAIS -->
 <section id="sobre" class="diferenciais">
-  <div class="section-header">
+  <div class="section-header reveal">
     <div class="section-label">Por que nos escolher</div>
     <h2 class="section-title">NOSSOS <span>DIFERENCIAIS</span></h2>
   </div>
 
   <div class="dif-grid">
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -872,7 +1183,7 @@
       <div class="dif-desc">Ferramentas e rebolos de altíssimo desempenho para as aplicações mais exigentes da indústria.</div>
     </div>
 
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <polyline points="20 6 9 17 4 12"/>
@@ -882,7 +1193,7 @@
       <div class="dif-desc">Cada produto passa por rigoroso controle de qualidade antes de sair da nossa ferramentaria.</div>
     </div>
 
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
@@ -892,7 +1203,7 @@
       <div class="dif-desc">Comprometidos com a entrega no prazo acordado. Seu tempo de produção é valioso.</div>
     </div>
 
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -902,7 +1213,7 @@
       <div class="dif-desc">Atendimento personalizado e dedicado. Trabalhamos junto com você para encontrar a melhor solução.</div>
     </div>
 
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -912,7 +1223,7 @@
       <div class="dif-desc">Materiais de ponta — diamante alemão e inglês — para maior vida útil e melhor custo-benefício.</div>
     </div>
 
-    <div class="dif-card">
+    <div class="dif-card reveal">
       <div class="dif-icon">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a9ef3" stroke-width="2" stroke-linecap="round">
           <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
@@ -925,6 +1236,33 @@
 </section>
 
 <div class="divider"></div>
+
+
+<!-- TRUST STRIP -->
+<div style="border-top:1px solid rgba(176,196,216,.06); border-bottom:1px solid rgba(176,196,216,.06); background:var(--bg2);">
+  <div class="trust-strip">
+    <div class="trust-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Qualidade Certificada
+    </div>
+    <div class="trust-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Atendimento Rápido
+    </div>
+    <div class="trust-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      +35 Anos Atendendo a Indústria
+    </div>
+    <div class="trust-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Diamante Alemão e Inglês
+    </div>
+    <div class="trust-item reveal">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Conforme seu Orçamento
+    </div>
+  </div>
+</div>
 
 <!-- CTA -->
 <section id="contato" class="cta-section">
@@ -945,10 +1283,62 @@
   </div>
 </section>
 
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="section-header reveal" style="text-align:left; margin-bottom:40px;">
+      <div class="section-label">Dúvidas Frequentes</div>
+      <h2 class="section-title" style="font-size:clamp(36px,5vw,56px);">PERGUNTAS <span>FREQUENTES</span></h2>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Vocês fabricam ferramentas sob medida?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">Sim! Fabricamos qualquer ferramenta conforme o desenho do cliente. Basta nos enviar o projeto ou especificações via WhatsApp e enviamos um orçamento.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Fazem retrabalho em ferramentas desgastadas?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">Com certeza. Recuperamos, reforçamos e deixamos a ferramenta como nova, com muito mais custo-benefício do que comprar uma nova.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Quais tipos de rebolos vocês trabalham?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">Trabalhamos com rebolos resinados, diamantados, borazon (CBN), metálicos, discos de corte e outros. Diamante de primeira linha alemão e inglês, em diversas medidas, diâmetros e concentrações.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Como faço para solicitar um orçamento?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">É simples! Clique em qualquer botão de WhatsApp no site ou ligue direto para (19) 98134-0650. Respondemos rapidamente com a melhor proposta para sua necessidade.</div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        Qual o prazo de entrega?
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">O prazo varia conforme o tipo e a quantidade do serviço. Informamos o prazo exato no orçamento, sempre com compromisso de cumprir o combinado.</div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">FERRAMENTARIA <span>TREVISAN</span></div>
-  <div class="footer-copy">© 2024 Ferramentaria Trevisan · Todos os direitos reservados · Itatiba - SP</div>
+  <div class="footer-copy">© 2019 Ferramentaria Trevisan · Todos os direitos reservados · Valinhos - SP, Jardim Pinheiros, Rua Higyno Guilherme Costato, 475</div>
+  <div class="footer-copy"></div>CNPJ: 32.650.735/0001-57</div>
   <a href="https://wa.me/5519981340650" target="_blank" style="color: var(--blue); font-family: 'Barlow Condensed', sans-serif; font-size:14px; letter-spacing:1px; text-decoration:none; text-transform:uppercase;">(19) 98134-0650</a>
 </footer>
 
@@ -956,6 +1346,99 @@
 <a href="https://wa.me/5519981340650?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento." target="_blank" class="wa-float" title="Falar no WhatsApp">
   <svg width="30" height="30" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
+
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<script>
+// Cursor glow
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+});
+
+// Particles
+(function() {
+  const container = document.getElementById('particles');
+  if (!container) return;
+  for (let i = 0; i < 22; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 3 + 1;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      --dur:${5+Math.random()*8}s;
+      --delay:${Math.random()*6}s;
+      opacity:${Math.random()*.5};
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// Navbar scroll
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Animated counters
+function animateCounter(el, target, suffix='') {
+  let start = 0;
+  const dur = 1800;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const prog = Math.min((timestamp - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - prog, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (prog < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !e.target.dataset.counted) {
+      e.target.dataset.counted = true;
+      const text = e.target.textContent;
+      if (text.includes('35')) animateCounter(e.target, 35, '+');
+      else if (text.includes('100')) animateCounter(e.target, 100, '%');
+      else if (text.includes('5')) animateCounter(e.target, 5, '');
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num').forEach(el => counterObserver.observe(el));
+
+// FAQ toggle
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Dif card mouse glow
+document.querySelectorAll('.dif-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+    card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+  });
+});
+</script>
 
 </body>
 </html>
